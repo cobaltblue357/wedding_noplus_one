@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wedding Invitation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fef8f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 200vh;
+      margin: 0;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      width: 400px;
+      height: 320px;
+      margin-top: 200px;
+      margin-bottom: 60px;
+      overflow: visible;
+      z-index: 10;
+    }
+
+    .calendar-btn {
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #0b8043;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+.calendar-btn:hover {
+  background-color: #086c37;
+}
+
+    .envelope-image {
+      position: absolute;
+      width: 100%;
+      height: auto;
+      top: 0;
+      left: 0;
+      transition: opacity 0.5s ease;
+      z-index: 1;
+      pointer-events: none; /* prevents blocking */
+    }
+
+    #envelopeClosed {
+      pointer-events: auto; /* this one can be clicked */
+      z-index: 2;
+      cursor: pointer;
+    }
+    .fancy-names {
+  font-family: 'Parisienne', cursive;
+  font-size: 36px;
+  margin: 10px 0;
+  color: #333;
+}
+
+    .invite-card {
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%) scale(1);
+      width: 320px;
+      opacity: 0;
+      z-index: 3;
+      animation-fill-mode: forwards;
+    }
+
+    .slide-up {
+      animation: liftGrowBounce 3s ease-in-out forwards;
+    }
+
+    @keyframes liftGrowBounce {
+      25% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-160px) scale(1);
+      }
+      60% {
+        transform: translateX(-50%) translateY(20px) scale(1.4);
+      }
+      100% {
+        transform: translateX(-50%) translateY(0) scale(1.5);
+        opacity: 1;
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 20px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  font-family: 'Playfair Display', serif;
+  animation: fadeIn 1s forwards;
+  margin-bottom: 20px;
+  color: #333;
+}
+    .rsvp-link {
+      margin-top: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #333;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-group {
+      margin: 12px 0;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    input, select, button {
+      font-family: 'Segoe UI', sans-serif;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #d4af7f;
+      outline: none;
+      box-shadow: 0 0 5px rgba(212, 175, 127, 0.5);
+    }
+
+    button {
+      background-color: #d4af7f;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #b07b46;
+    }
+
+    .download-btn {
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #d4af7f;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+.download-btn:hover {
+  background-color: #b07b46;
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .envelope-wrapper {
+    width: 100%;
+    max-width: 360px;
+    margin-top: 60px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .envelope-image {
+    width: 100%;
+    height: auto;
+  }
+
+.invite-card {
+  position: absolute;
+  left: 50%;
+  bottom: -20px; /* was -30px */
+  transform: translateX(-50%);
+  width: 85%;     /* slightly smaller width */
+  max-width: 300px; /* slightly smaller */
+  z-index: 3;
+  opacity: 0;
+}
+
+  .slide-up {
+    animation: slideUpMobile 2s ease-out forwards;
+  }
+
+@keyframes slideUpMobile {
+  0% {
+    transform: translateX(-50%) translateY(100px) scale(1);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px) scale(1.08); /* smaller scale */
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(0px) scale(1.1); /* smaller scale */
+    opacity: 1;
+  }
+}
+
+  #invitationCard,
+  #rsvpFormContainer {
+    position: relative !important;
+    margin: 20px auto !important;
+    width: 90% !important;
+    max-width: 400px;
+    z-index: 999;
+    left: auto !important;
+    top: auto !important;
+    right: auto !important;
+  }
+
+  #rsvpFormContainer h3 {
+  font-family: 'Playfair Display', serif !important;
+}
+
+  .card {
+    padding: 14px;
+    font-size: 15px;
+    box-sizing: border-box;
+  }
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+h3 {
+  font-family: 'Parisienne', cursive;
+  font-size: 34px;
+  font-weight: normal;
+  color: #333;
+  margin-top: 15px;
+}
+
+  .rsvp-link {
+    font-size: 16px;
+    padding: 10px 20px;
+    display: inline-block;
+  }
+
+  label,
+  input,
+  select,
+  button {
+    font-size: 15px;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  
+<div id="clickPrompt" style="
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 9999;
+  display: none;
+  animation: pulseFade 1.2s ease-in-out infinite;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  pointer-events: none;
+">
+  Click or Tap to open!
+</div>
+
+
+  
+
+  <div class="envelope-wrapper">
+    <img src="envelope_closed.png" class="envelope-image" id="envelopeClosed" alt="Closed Envelope" />
+    <img src="envelope_open_with_card2.PNG" class="envelope-image hidden" id="envelopeOpenCard" alt="Open Envelope with Card" />
+    <img src="envelope_open_empty.png" class="envelope-image hidden" id="envelopeOpenEmpty" alt="Open Empty Envelope" />
+    <img src="invitation_card2.PNG" class="invite-card hidden" id="inviteCard" alt="Invitation Card" />
+  </div>
+
+<div class="card hidden" id="invitationCard" style="position: absolute; right: 5%; top: 150px; z-index: 999;">
+  <h2 style="font-family: 'Playfair Display', serif;">You Are Invited!</h2>
+  <p>Join us in celebrating the wedding of</p>
+  <div class="fancy-names">Sidney & Mason</div>
+<p style="margin: 0; line-height: 1.2;">Saturday, March 7th 2026 @ 4:30pm</p>
+<p style="margin: 1px; line-height: 1.2; font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+  The Sanctuary Event Venue, 716 N 9th Avenue, Pensacola, FL
+</p>
+<p style="margin-top: 4px; font-size: 10px;">Reception to Follow</p>
+    <div class="rsvp-link hidden" id="rsvpLink" onclick="showRsvpForm()" style="margin-top: 4px;">Click here to RSVP</div>
+</div>
+
+  <div class="card hidden" id="rsvpFormContainer" style="position: absolute; right: 5%; top: 600px; z-index: 999;">
+    <h3>RSVP</h3>
+    <form id="rsvpForm">
+      <div class="form-group">
+        <label for="name">Your Name:<span style="color: red">*</span></label>
+        <input type="text" name="Name" id="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="attendance">Will you attend?<span style="color: red">*</span></label>
+        <select name="Attendance" id="attendance" required>
+          <option value="">--Select--</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="plusOne">Will you bring a plus one?<span style="color: red">*</span></label>
+        <select name="PlusOne" id="plusOne" required onchange="toggleGuestName(this.value)">
+          <option value="">--Select--</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+
+<div class="form-group hidden" id="guestNameGroup">
+  <label for="guestName">Guest Name: <span style="color: red">*</span></label>
+  <input type="text" name="GuestName" id="guestName">
+</div>
+      
+<div class="form-group">
+  <label for="Email">Email Address: <span style="color: red">*</span></label>
+  <input type="Email" name="Email" id="Email" required>
+</div>
+
+<div class="form-group">
+  <label for="Message">Message (Optional): </label>
+  <input type="text" name="Message" id="Message">
+</div>
+
+      <button type="submit">Submit RSVP</button>
+    </form>
+    <p id="confirmation" style="color: green; display: none; margin-top: 10px;">Thank you for your response!</p>
+
+    <a href="wedding_invite.png" download="Mason_Sidney_Wedding_Invite.png" class="download-btn">Download A Copy of Invitation</a>
+  <a
+ href="https://www.google.com/calendar/render?action=TEMPLATE&text=Sidney+%26+Mason+Wedding&dates=20260307T223000Z%2F20260308T043000Z&details=Please+join+us+for+our+wedding%21+Ceremony+starts+at+4%3A30+PM+with+reception+to+follow.&location=At+the+Sanctuary+Event+Venue,+716+N+9th+Avenue,+Pensacola,+Florida&sf=true&output=xml" 
+  class="calendar-btn"
+>
+  Add to Google Calendar
+</a>
+
+  </div>
+
+  </div>
+
+  <script>
+let clicked = false;
+
+window.onload = function () {
+  document.getElementById("envelopeClosed").classList.remove("hidden");
+
+  // Set timer for prompt
+  setTimeout(() => {
+    if (!clicked) {
+      document.getElementById("clickPrompt").style.display = "block";
+    }
+  }, 2500); // 2.5 seconds
+
+  // Click event
+  document.getElementById("envelopeClosed").addEventListener("click", openInvitation);
+};
+
+function openInvitation() {
+  clicked = true;
+  document.getElementById("clickPrompt").style.display = "none";
+
+  document.getElementById("envelopeClosed").classList.add("hidden");
+  document.getElementById("envelopeOpenCard").classList.remove("hidden");
+
+  const invite = document.getElementById("inviteCard");
+  invite.classList.remove("hidden");
+
+  setTimeout(() => {
+    invite.classList.add("slide-up");
+    document.getElementById("envelopeOpenCard").classList.add("hidden");
+    document.getElementById("envelopeOpenEmpty").classList.remove("hidden");
+  }, 800);
+
+  setTimeout(() => {
+    document.getElementById("invitationCard").classList.remove("hidden");
+    document.getElementById("rsvpLink").classList.remove("hidden");
+  }, 3500);
+}
+
+    function showRsvpForm() {
+      const form = document.getElementById('rsvpFormContainer');
+      form.classList.remove('hidden');
+      form.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleGuestName(value) {
+      const guestGroup = document.getElementById('guestNameGroup');
+      if (value === "Yes") {
+        guestGroup.classList.remove('hidden');
+      } else {
+        guestGroup.classList.add('hidden');
+      }
+    }
+
+   document.getElementById("rsvpForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const submitButton = form.querySelector('button[type="submit"]');
+    
+    // Disable button & update UI
+    submitButton.disabled = true;
+    submitButton.innerText = "Submitting...";
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+
+      fetch("https://script.google.com/macros/s/AKfycbybwhSfBc5cBAfSh2go-7BNDed2Hg4GsJOCYHTG1uZBMH0JDvaqM9LGBvyp4GomFICA/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      }).then(() => {
+      // Change button to green with success message
+      submitButton.innerText = "Submitted!";
+      submitButton.style.backgroundColor = "#4CAF50";  // Green
+      submitButton.style.color = "#fff";
+      
+      form.reset();
+      document.getElementById("confirmation").style.display = 'block';
+    });
+  });
+  </script>
+</body>
+</html>
+  </script>
+</body>
+</html>
